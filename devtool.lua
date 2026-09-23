@@ -71,10 +71,10 @@ local PARENT = getParentGui()
 
 local CFG = {
     TITLE = "DevTool",
-    SIZE = Vector2.new(560, 400),
-    MIN_SIZE = Vector2.new(400, 280),
-    MAX_SIZE = Vector2.new(1600, 1000),
-    HIDDEN_SIZE = Vector2.new(80, 22),
+    SIZE = Vector2.new(340, 260),
+    MIN_SIZE = Vector2.new(300, 200),
+    MAX_SIZE = Vector2.new(1400, 900),
+    HIDDEN_SIZE = Vector2.new(70, 20),
     KEYBIND = Enum.KeyCode.RightControl,
     MAX_LOGS = 300,
     MAX_CHILDREN = 100,
@@ -117,6 +117,21 @@ local CFG = {
     FONT_BOLD = Enum.Font.GothamBold,
     FONT_MED = Enum.Font.GothamMedium,
 }
+
+-- Хелпер для получения размера экрана
+local function getViewport()
+    local cam = workspace.CurrentCamera
+    if cam then return cam.ViewportSize end
+    return Vector2.new(800, 600)
+end
+
+-- Хелпер для ограничения окна в пределах экрана
+local function clampToViewport(pos, size)
+    local vp = getViewport()
+    local x = math.clamp(pos.X.Offset, 0, math.max(0, vp.X - size.X))
+    local y = math.clamp(pos.Y.Offset, 0, math.max(0, vp.Y - size.Y))
+    return UDim2.new(0, x, 0, y)
+end
 
 --=============================================================
 -- HELPERS
